@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personal Portfolio Website</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://kit.fontawesome.com/9863b5117f.js" crossorigin="anonymous"></script>
+
+</head>
+<body>
+    <div id="projects">
+        <div class="container">
+            <h1 class="sub-title">Source Code:</h1>
+            <div class="project-list">
+                <div>
+                    <i class="fa-solid fa-code"></i>
+                    <p>from google.colab import drive<br>
+                        drive.mount('/content/drive')<br>
+                        <br>
+                        import matplotlib.pyplot as plt<br>
+                        import numpy as np<br>
+                        import pandas as pd<br>
+                        import seaborn as sns<br>
+                        import cv2<br>
+                        import tensorflow as tf<br>
+                        from tensorflow.keras.preprocessing.image import ImageDataGenerator<br>
+                        from tqdm import tqdm<br>
+                        import os<br>
+                        from sklearn.utils import shuffle<br>
+                        from sklearn.model_selection import train_test_split<br>
+                        from tensorflow.keras.applications import EfficientNetB0<br>
+                        from tensorflow.keras.callbacks import EarlyStopping, ReduceLROnPlateau, TensorBoard, ModelCheckpoint<br>
+                        from sklearn.metrics import classification_report,confusion_matrix<br>
+                        import ipywidgets as widgets<br>
+                        import io<br>
+                        from PIL import Image<br>
+                        from IPython.display import display,clear_output<br>
+                        from warnings import filterwarnings<br>
+                        <br>
+                        for dirname, _, filenames in os.walk('/content/drive/MyDrive/LEAF_DATASET'):<br>
+                            for filename in filenames:<br>
+                                print(os.path.join(dirname, filename))<br>
+                                <br>
+                        colors_dark = ["#1F1F1F", "#313131", '#636363', '#AEAEAE', '#DADADA']<br>
+                        colors_red = ["#331313", "#582626", '#9E1717', '#D35151', '#E9B4B4']<br>
+                        colors_green = ['#01411C','#4B6F44','#4F7942','#74C365','#D0F0C0']<br>
+                        <br>
+                        sns.palplot(colors_dark)<br>
+                        sns.palplot(colors_green)<br>
+                        sns.palplot(colors_red)<br>
+                        <br>
+                        labels = ['NOT_LEAF','early_blight','healthy','late_blight']<br>
+                        <br>
+                        X_train = []<br>
+                        y_train = []<br>
+                        image_size = 150<br>
+                        for i in labels:<br>
+                            folderPath = os.path.join('/content/drive/MyDrive/LEAF_DATASET/Training',i)<br>
+                            for j in tqdm(os.listdir(folderPath)):<br>
+                                img = cv2.imread(os.path.join(folderPath,j))<br>
+                                img = cv2.resize(img,(image_size, image_size))<br>
+                                X_train.append(img)<br>
+                                y_train.append(i)<br>
+                                <br>
+                        for i in labels:<br>
+                            folderPath = os.path.join('/content/drive/MyDrive/LEAF_DATASET/Testing',i)<br>
+                            for j in tqdm(os.listdir(folderPath)):<br>
+                                img = cv2.imread(os.path.join(folderPath,j))<br>
+                                img = cv2.resize(img,(image_size,image_size))<br>
+                                X_train.append(img)<br>
+                                y_train.append(i)<br>
+                                <br>
+                        X_train = np.array(X_train)<br>
+                        y_train = np.array(y_train)<br>
+                        <br>
+                        k=0<br>
+                        fig, ax = plt.subplots(1,4,figsize=(20,20))<br>
+                        fig.text(s='Sample Image From Each Label\n',size=18,fontweight='bold',<br>
+                                     fontname='monospace',color=colors_dark[1],y=0.62,x=0.4,alpha=0.8)<br>
+                        for i in labels:<br>
+                            j=0<br>
+                            while True :<br>
+                                if y_train[j]==i:<br>
+                                    ax[k].imshow(X_train[j])<br>
+                                    ax[k].set_title(y_train[j])<br>
+                                    ax[k].axis('off')<br>
+                                    k+=1<br>
+                                    break<br>
+                                j+=1<br>
+                                <br>
+                        effnet = EfficientNetB0(weights='imagenet',include_top=False,input_shape=(image_size,image_size,3))<br>
+                        <br>
+                        model = effnet.output<br>
+                        model = tf.keras.layers.GlobalAveragePooling2D()(model)<br>
+                        model = tf.keras.layers.Dropout(rate=0.5)(model)<br>
+                        model = tf.keras.layers.Dense(4,activation='softmax')(model)<br>
+                        model = tf.keras.models.Model(inputs=effnet.input, outputs = model)<br>
+                        <br>
+                        model.summary()<br>
+                        <br>
+                        model.compile(loss='categorical_crossentropy',optimizer = 'Adam', metrics= ['accuracy'])<br>
+                        <br>
+                        tensorboard = TensorBoard(log_dir = 'logs')<br>
+                        checkpoint = ModelCheckpoint("effnet.h5",monitor="val_accuracy",save_best_only=True,mode="auto",verbose=1)<br>
+                        reduce_lr = ReduceLROnPlateau(monitor = 'val_accuracy', factor = 0.3, patience = 2, min_delta = 0.001,<br>
+                                                      mode='auto',verbose=1)<br>
+                                                      <br>
+                                                      <br>
+                        history = model.fit(X_train,y_train,validation_split=0.1, epochs =12, verbose=1, batch_size=32,<br>
+                                           callbacks=[tensorboard,checkpoint,reduce_lr])<br>
+                                           <br>
+                        filterwarnings('ignore')<br>
+                        <br>
+                        epochs = [i for i in range(12)]<br>
+                        fig, ax = plt.subplots(1,2,figsize=(14,7))<br>
+                        train_acc = history.history['accuracy']<br>
+                        train_loss = history.history['loss']<br>
+                        val_acc = history.history['val_accuracy']<br>
+                        val_loss = history.history['val_loss']<br>
+                        <br>
+                        fig.text(s='Epochs vs. Training and Validation Accuracy/Loss',size=18,fontweight='bold',<br>
+                                     fontname='monospace',color=colors_dark[1],y=1,x=0.28,alpha=0.8)<br>
+                                     <br>
+                        sns.despine()<br>
+                        ax[0].plot(epochs, train_acc, marker='o',markerfacecolor=colors_green[2],color=colors_green[3],<br>
+                                   label = 'Training Accuracy')<br>
+                        ax[0].plot(epochs, val_acc, marker='o',markerfacecolor=colors_red[2],color=colors_red[3],<br>
+                                   label = 'Validation Accuracy')<br>
+                        ax[0].legend(frameon=False)<br>
+                        ax[0].set_xlabel('Epochs')<br>
+                        ax[0].set_ylabel('Accuracy')<br>
+                        <br>
+                        sns.despine()<br>
+                        ax[1].plot(epochs, train_loss, marker='o',markerfacecolor=colors_green[2],color=colors_green[3],<br>
+                                   label ='Training Loss')<br>
+                        ax[1].plot(epochs, val_loss, marker='o',markerfacecolor=colors_red[2],color=colors_red[3],<br>
+                                   label = 'Validation Loss')<br>
+                        ax[1].legend(frameon=False)<br>
+                        ax[1].set_xlabel('Epochs')<br>
+                        ax[1].set_ylabel('Training & Validation Loss')<br>
+                        <br>
+                        fig.show()<br>
+                        <br>
+                        pred = model.predict(X_test)<br>
+                        pred = np.argmax(pred,axis=1)<br>
+                        y_test_new = np.argmax(y_test,axis=1)<br>
+                        <br>
+                        fig,ax=plt.subplots(1,1,figsize=(14,7))<br>
+                        sns.heatmap(confusion_matrix(y_test_new,pred),ax=ax,xticklabels=labels,yticklabels=labels,annot=True,<br>
+                                   cmap=colors_green[::-1],alpha=0.7,linewidths=2,linecolor=colors_dark[3])<br>
+                        fig.text(s='Heatmap of the Confusion Matrix',size=18,fontweight='bold',<br>
+                                     fontname='monospace',color=colors_dark[1],y=0.92,x=0.28,alpha=0.8)<br>
+                                     <br>
+                        plt.show()<br>
+                        <br>
+                        def img_pred(upload):<br>
+                            for name, file_info in uploader.value.items():<br>
+                                img = Image.open(io.BytesIO(file_info['content']))<br>
+                            opencvImage = cv2.cvtColor(np.array(img), cv2.COLOR_RGB2BGR)<br>
+                            img = cv2.resize(opencvImage,(150,150))<br>
+                            img = img.reshape(1,150,150,3)<br>
+                            p = model.predict(img)<br>
+                            p = np.argmax(p,axis=1)[0]<br>
+                            <br>
+                            if p==0:<br>
+                                print('The model predicts that the image is not a potato leaf')<br>
+                            elif p==1:<br>
+                                p='Early Blight Disease'<br>
+                            elif p==2:<br>
+                                p='Heathy Potato Leaf'<br>
+                            else:<br>
+                                p='Late Blight Disease'<br>
+                                <br>
+                            if p!=0:<br>
+                                print(f'The Model predicts that it is a {p}')<br>
+                                <br>
+                        uploader = widgets.FileUpload()<br>
+                        display(uploader)<br>
+                        <br>
+                        button = widgets.Button(description='Predict')<br>
+                        out = widgets.Output()<br>
+                        def on_button_clicked(_):<br>
+                            with out:<br>
+                                clear_output()<br>
+                                try:<br>
+                                    img_pred(uploader)<br>
+                                    <br>
+                                except:<br>
+                                    print('No Image Uploaded/Invalid Image File')<br>
+                        button.on_click(on_button_clicked)<br>
+                        widgets.VBox([buttonout])</p>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

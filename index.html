@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personal Portfolio Website</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://kit.fontawesome.com/9863b5117f.js" crossorigin="anonymous"></script>
+
+</head>
+<body>
+
+  <!--HEADER-->  
+    <div id="header">
+        <div class="container">
+            <nav>
+                <img src="logo.png" class="logo">
+                <ul id="sidemenu">
+                    <li><a href="#header">HOME</a></li>
+                    <li><a href="#about">ABOUT</a></li>
+                    <li><a href="#projects">PROJECTS</a></li>
+                    <li><a href="#certificate">CERTIFICATES</a></li>
+                    <li><a href="#contact">CONTACTS</a></li>
+                    <i class="fas fa-times" onclick="closemenu()"></i>
+                </ul>
+                <i class="fas fa-bars" onclick="openmenu()"></i>
+            </nav>
+            <div class="header-text">
+                <h6>Front-end developer</h6>
+                <h1>Hi, I am <span>APARNA</span> <br>from India</h1>
+            </div>
+        </div>
+    </div>   
+
+    <!-- about section -->
+    <div id="about">
+        <div class="container">
+            <div class="row">
+                <div class="about-col-1">
+                    <img src="profile.jpg">
+                </div>
+                <div class="about-col-2">
+                    <h1 class="sub-title">About Me</h1>
+                    <div class="Para">
+                    <p>An enthusiastic, self-driven, and hard-working individual with outstanding potential. A mature team worker and adaptable to all challenging situations. Willing to add value
+                     to the existing process all the time; additional skill-set to focus orientation, creative, good listening skill with an adaptive attitude and able to work well under pressure and 
+                     adhere to strict deadlines.<br>Professional desired to get an opportunity where I can make the best of my potential and contribute to the organization’s growth.
+                    </p></div>
+
+                    <div class="tab-titles">
+                        <p class="tab-links active-link" onclick="opentab('education')">Education</p>
+                        <p class="tab-links" onclick="opentab('skills')">Skills</p>
+                        <p class="tab-links" onclick="opentab('softskill')">Soft skills</p>
+                        <p class="tab-links" onclick="opentab('hobby')">Hobbies</p>
+                    </div>
+                    <div class="tab-contents active-tab" id="education">
+                        <ul>
+                            <li><span>2020 - 2024(present)</span><br>University of Engineering & Management | jaipur, Rajasthan<br>Bachelor of Technology in CSE<br>Current CGPA: 8.57/10.00</li>
+                            <li><span>2018 - 2020</span><br>Central Public School | samastipur, Bihar<br>Senior Secondary(12): CBSE<br>Percentage: 77%</li>
+                            <li><span>2008 - 2018</span><br>Kendriya Vidyalaya | Samastipur, Bihar<br>Secondary School(10): CBSE<br>Percentage: 92.8%</li>
+                        </ul>
+                    </div>
+                    <div class="tab-contents" id="skills">
+                        <ul>
+                            <li>Language: C++</li>
+                            <li>Object Oriented Programming (OOPs)</li>
+                            <li>DBMS: Structured Query Language(SQL)</li>
+                            <li>HTML: HyperText Markup Language</li>
+                            <li>CSS: Cascading Style Sheet</li>
+                        </ul>
+                    </div>  
+                    <div class="tab-contents" id="softskill">
+                        <ul>
+                            <li>Adaptability</li>
+                            <li>Quick learner</li>
+                            <li>Presentation</li>
+                            <li>Negotiation</li>
+                            <li>Decision making</li>
+                            <li>Collaboration</li>
+                        </ul>
+                    </div>
+                    <div class="tab-contents" id="hobby">
+                        <ul>
+                            <li>Playing Chess</li>
+                            <li>Listening to music</li>
+                            <li>Spending quality time with family</li>
+                            <li>Teaching</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<!-- Projects -------- about=leaf disease----about1=portfolio-------about2=white-board---- -->
+
+<div id="projects">
+    <div class="container">
+        <h1 class="sub-title">My Projects</h1>
+        <div class="project-list">
+            <div>
+                <i class="fa-solid fa-user"></i>
+                <h2>Portfolio</h2>
+                <p>The portfolio can have the same purpose as a CV. Most CVs are written with text, while the portfolio is for showcasing, so it is visual with images and often more detailed than the CV.</p>
+                <a href="#"><a href="about1.html"><u>learn more</u></a></a>
+            </div>
+            <div>
+                <i class="fa-solid fa-leaf"></i>
+                <h2>Leaf Disease Detection</h2>
+                <p>Early detection of disease can help farmers and agriculture based company to produce more crops....</p>
+                <a href="#"><a href="about.html"><u>learn more</u></a></a>
+            </div>
+            <div> 
+                <i class="fa-solid fa-chalkboard"></i>
+                <h2>White Board</h2>
+                <p>Made during pandemic, it can perform various tasks like drawing, writing, solving questions etc....</p>
+                <a href="#"><a href="about2.html"><u>learn more</u></a></a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!------------------------ CERTIFICATES ---------------------------->
+
+<div id="certificate">
+    <div class="container">
+        <h1 class="sub-title">Certificates</h1>
+        <div class="lists">
+            <div class="list">
+                <a href="about.html">
+                <img src="profile.jpg"></a>
+                <div class="layer">
+                    <h3>Courses Certificates</h3>
+                    <p>I have completed various courses offered by NPTEL, COURSERA, UDEMY etc. Through this course, I have acquired advanced skills in various domains. Through these courses, I gained a solid foundation in process management, file system, management skills, language like C/python, data types, control structures, and functions etc.....</p>
+                    <!--<a href="#"><i class="fa-solid fa-up-right-from-square"></i></a>-->
+                </div>
+            </div>
+            <div class="list">
+                <img src="profile.jpg">
+                <div class="layer">
+                    <h3>Academic Certificates</h3>
+                    <p>As part of my B.Tech (Computer Science and Engineering) program, I have obtained academic certificates in different fields. These certificates validate my knowledge and skills in academic and sports. I gained various skills in sports  like chess, tugofwar etc and in semester as well.</p>
+                    <!--<a href="#"><i class="fa-solid fa-up-right-from-square"></i></a>-->
+                </div>
+            </div>
+            <div class="list">
+                <img src="profile.jpg">
+                <div class="layer">
+                    <h3>School Certificates</h3>
+                    <p>I got many certificates in my school that acknowledged my exceptional grades, consistent academic achievements, and overall commitment to excellence in my studies as well. These certificates reflect my strong academic foundation and serves as a recognition of my scholastic achievements during my school years.</p>
+                    <!--<a href="#"><i class="fa-solid fa-up-right-from-square"></i></a>-->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!---------------------CONTACT---------------------->
+<div id="contact">
+    <div class="container">
+        <div class="row">
+            <div class="contact-left">
+                <h1 class="sub-title">Contact Me</h1>
+                <p><i class="fa-solid fa-envelope"></i>aparnathakur103@gmail.com</p>
+                <p><i class="fa-solid fa-phone"></i>7033936165</p>
+                <div class="social-icons">
+                    <a href="https://www.instagram.com/21ap.ar.na/"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="https://www.linkedin.com/in/aparna-589bb7264/"><i class="fa-brands fa-linkedin"></i></a>
+                    <a href="https://github.com/aparna211102/"><i class="fa-brands fa-github"></i></a>
+                </div>
+                <a href="images\APARNA.pdf" download class="btn">Download CV</a>
+            </div>
+            <div class="contact-right">
+                <form name="submit-to-google-sheet">
+                    <input type="text" name="Name" placeholder="Your Name" required>
+                    <input type="email" name="Email" placeholder="Your Email" required>
+                    <textarea name="Message" rows="6" placeholder="Your Message"></textarea>
+                    <button type="submit" class="btn">Submit</button>
+                </form>
+                <span id="msg"></span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!---------------JS Part----------------->
+<script>
+    var tablinks = document.getElementsByClassName("tab-links");
+    var tabcontents = document.getElementsByClassName("tab-contents");
+    function opentab(tabname){
+        for(tablink of tablinks){
+            tablink.classList.remove("active-link");
+        }
+        for(tabcontent of tabcontents){
+            tabcontent.classList.remove("active-tab");
+        }
+        event.currentTarget.classList.add("active-link");
+        document.getElementById(tabname).classList.add("active-tab");
+    }
+</script>
+    
+<script>
+    var sidemenu = document.getElementById("sidemenu")
+    function openmenu(){
+        sidemenu.style.right="0";
+    }
+    function closemenu(){
+        sidemenu.style.right="0";
+    }
+</script>
+<script>
+    const scriptURL = '<https://script.google.com/macros/s/AKfycbxBV_vUXi74EVWN0TNZVRLKg4laOfHICH_mlISxH5fNzDT-0iP3m-FkHcs2ewnVh9mt/exec>'
+    const form = document.forms['submit-to-google-sheet']
+    const msg = document.getElementById("msg")
+  
+    form.addEventListener('submit', e => {
+      e.preventDefault()
+      fetch(scriptURL, { method: 'POST', body: new FormData(form)})
+        .then(response => {
+            msg.innerHTML= "Message sent successfully"
+            setTimeout(function(){
+                msg.innerHTML = ""
+            },5000)
+            form.reset()
+        })
+        .catch(error => console.error('Error!', error.message))
+    })
+  </script>
+<!--
+  <script>
+    const downloadLink = document.querySelector('a');
+    downloadLink.addEventListener('click', () => {
+  // Perform any additional actions here
+    console.log('File download started.');
+});
+  </script>
+--> 
+</body>
+</html>
